@@ -82,6 +82,9 @@ builder.Services.AddSingleton(mapper);
 
 var app = builder.Build();
 
+
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -89,10 +92,27 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+//var urlDev = "https://dominiodocliente.com.br";
+//var urlHML = "https://dominiodocliente2.com.br";
+//var urlPROD = "https://dominiodocliente3.com.br";
+
+//app.UseCors(b => b.WithOrigins(urlDev, urlHML, urlPROD));
+
+//var devClient = "http://localhost:4200";
+
+var devClient = "http://localhost:3000";
+app.UseCors(x => x
+.AllowAnyOrigin()
+.AllowAnyMethod()
+.AllowAnyHeader().WithOrigins(devClient));
+
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseSwaggerUI();
 
 app.Run();
