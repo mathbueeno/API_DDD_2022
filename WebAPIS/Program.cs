@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using WebAPIS.Token;
 using AutoMapper;
 using WebAPIS.Models;
+using Domain.Interfaces.IServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
