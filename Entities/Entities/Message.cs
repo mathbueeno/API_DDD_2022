@@ -14,7 +14,6 @@ namespace Entities.Entities
         [Column("MSN_ID")]
         public int Id { get; set; }
 
-
         [Column("MSN_TITULO")]
         [MaxLength(255)]
         public string Titulo { get; set; }
