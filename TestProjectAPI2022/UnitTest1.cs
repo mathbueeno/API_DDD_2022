@@ -17,7 +17,7 @@ namespace TestProjectAPI2022
         [TestMethod]
         public void TestMethod1()
         {
-            var result = ChamaApiPost("https://localhost:7197/api/List").Result;
+            var result = ChamaApiPost("https://localhost:7163/api/List").Result;
 
             var listaMessage = JsonConvert.DeserializeObject<Message[]>(result).ToList();
 
@@ -28,7 +28,7 @@ namespace TestProjectAPI2022
         public void GetToken()
         {
 
-            string urlApiGeraToken = "https://localhost:7197/api/CriarTokenIdentity";
+            string urlApiGeraToken = "https://localhost:7163/api/CriarTokenIdentity";
 
             using (var cliente = new HttpClient())
             {
