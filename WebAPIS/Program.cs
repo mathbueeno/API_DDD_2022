@@ -36,6 +36,8 @@ builder.Services.AddRazorPages();
 // INTERFACE E REPOSITORIO
 builder.Services.AddSingleton(typeof(IGeneric<>), typeof(RepositoryGenerics<>));
 builder.Services.AddSingleton<IMessage, RepositoryMessage>();
+builder.Services.AddSingleton<IMessage, RepositoryMessage>();
+
 
 
 //SERVIÇO DOMINIO

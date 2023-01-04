@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,48 +12,145 @@ namespace Infrastructure.RepositoryExterno
 {
     public class RepositorioProduto : IProduto
     {
-        private readonly string urlApi= "http://...";
+        private readonly string urlApi= "http://localhost:4200/";
 
         public Produto Create(Produto produto)
         {
             var produtoCriado = new Produto();
 
-            using (var cliente = new HttpClient())
+            try
             {
-                string jsonObjeto = JsonConvert.SerializeObject(produto);
-                var content = new StringContent(jsonObjeto, Encoding.UTF8, "application/json");
-
-                var resposta = cliente.PostAsync(urlApi + "Create", content);
-                resposta.Wait();
-
-                if (resposta.Result.IsSuccessStatusCode)
+                using (var cliente = new HttpClient())
                 {
-                    var retorno = resposta.Result.Content.ReadAsStringAsync();
-                    produtoCriado = JsonConvert.DeserializeObject<Produto>(retorno.Result);
+                    string jsonObjeto = JsonConvert.SerializeObject(produto);
+                    var content = new StringContent(jsonObjeto, Encoding.UTF8, "application/json");
+
+                    var resposta = cliente.PostAsync(urlApi + "Create", content);
+                    resposta.Wait();
+
+                    if (resposta.Result.IsSuccessStatusCode)
+                    {
+                        var retorno = resposta.Result.Content.ReadAsStringAsync();
+                        produtoCriado = JsonConvert.DeserializeObject<Produto>(retorno.Result);
+                    }
                 }
             }
-
+            catch (Exception)
+            {
+                throw;
+            }
+                        
+                        
             return produtoCriado;
         }
 
         public Produto Delete(int codigo)
         {
-            throw new NotImplementedException();
+            var produtoCriado = new Produto();
+            produtoCriado.Codigo = codigo;
+
+            try
+            {
+                using (var cliente = new HttpClient())
+                {
+                    string jsonObjeto = JsonConvert.SerializeObject(produtoCriado);
+                    var content = new StringContent(jsonObjeto, Encoding.UTF8, "application/json");
+
+                    var resposta = cliente.PostAsync(urlApi + "Delete", content);
+                    resposta.Wait();
+
+                    if (resposta.Result.IsSuccessStatusCode)
+                    {
+                        var retorno = resposta.Result.Content.ReadAsStringAsync();
+                        produtoCriado = JsonConvert.DeserializeObject<Produto>(retorno.Result);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+
+            return produtoCriado;
         }
 
         public Produto GetOne(int codigo)
         {
-            throw new NotImplementedException();
+            var produtoCriado = new Produto();
+            produtoCriado.Codigo = codigo;
+
+            try
+            {
+                using (var cliente = new HttpClient())
+                {
+                    string jsonObjeto = JsonConvert.SerializeObject(produtoCriado);
+                    var content = new StringContent(jsonObjeto, Encoding.UTF8, "application/json");
+
+                    var resposta = cliente.PostAsync(urlApi + "GetOne", content);
+                    resposta.Wait();
+
+                    if (resposta.Result.IsSuccessStatusCode)
+                    {
+                        var retorno = resposta.Result.Content.ReadAsStringAsync();
+                        produtoCriado = JsonConvert.DeserializeObject<Produto>(retorno.Result);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+
+            return produtoCriado;
         }
 
-        public List<Produto> List()
+        public async List<Produto> List()
         {
-            throw new NotImplementedException();
+            var retorno = new List<Produto>();
+            try
+            {
+                using (var cliente = new HttpClient())
+                {
+                    var resposta = cliente.GetStringAsync(urlApi + "List");
+                    resposta.Wait();
+                    retorno = JsonConvert.DeserializeObject<Produto[]>(resposta.Result).ToList;
+                }
+            } 
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public Produto Update(Produto produto)
         {
-            throw new NotImplementedException();
+            var produtoCriado = new Produto();
+
+            try
+            {
+                using (var cliente = new HttpClient())
+                {
+                    string jsonObjeto = JsonConvert.SerializeObject(produto);
+                    var content = new StringContent(jsonObjeto, Encoding.UTF8, "application/json");
+
+                    var resposta = cliente.PostAsync(urlApi + "Update", content);
+                    resposta.Wait();
+
+                    if (resposta.Result.IsSuccessStatusCode)
+                    {
+                        var retorno = resposta.Result.Content.ReadAsStringAsync();
+                        produtoCriado = JsonConvert.DeserializeObject<Produto>(retorno.Result);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return produtoCriado;
         }
     }
 }
