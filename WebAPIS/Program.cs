@@ -12,6 +12,7 @@ using WebAPIS.Token;
 using AutoMapper;
 using WebAPIS.Models;
 using Domain.Interfaces.IServices;
+using Domain.InterfacesExternas;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,7 +37,7 @@ builder.Services.AddRazorPages();
 // INTERFACE E REPOSITORIO
 builder.Services.AddSingleton(typeof(IGeneric<>), typeof(RepositoryGenerics<>));
 builder.Services.AddSingleton<IMessage, RepositoryMessage>();
-builder.Services.AddSingleton<IMessage, RepositoryMessage>();
+builder.Services.AddSingleton<IProduto, RepositoryProduto>();
 
 
 
